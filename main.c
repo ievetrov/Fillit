@@ -5,7 +5,38 @@
 
 #define BUF_SIZE 20
 
+/**
+             #
+             #
+             #
+ #### - 0    #    - 1
+
+
+ ##          ##         #            #
+ #            #         #            #
+ #    - 2     #   - 3   ##   - 4    ##   - 5
+
+ #             #        ###         ###
+ ###  - 6    ###  - 7   #     - 8     #  - 9
+
+
+                        #            #
+ ##           ##        ##          ##
+  ##  - 10   ##   - 11   #   - 12   #    - 13
+
+
+                        #             #
+  #          ###        ##           ##
+ ###  - 14    #   - 15  #    - 16     #   - 17
+
+
+ ##
+ ##   - 18
+
+ */
+
 int parse_tetramino(char *str) {
+
     return 10;
 }
 
@@ -16,11 +47,13 @@ int parse_tetramino_list(const int fd, int **result) {
 
 //    result = malloc(1)
     while ((ret = read(fd, buf, BUF_SIZE)) == BUF_SIZE) {
-        parse_tetramino(buf);
+        if (parse_tetramino(buf) < 0) {
+            return (-1);
+        }
         i++;
     }
 
-    return i;
+    return (i);
 }
 
 void fill_result(int *params, char **result) {
