@@ -1,0 +1,16 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "gcc build active file",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "main.c",
+                "-L./libft",
+                "-lft"
+            ]
+        }
+    ],
+    "version": "2.0.0"
+}
