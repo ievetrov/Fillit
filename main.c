@@ -34,26 +34,72 @@
  ##   - 18
 
  */
-
-int parse_tetramino(char *str) {
-
-    return 10;
+void	ft_exit(void)
+{
+	printf("error\n");
+	exit(EXIT_FAILURE);
 }
+
+int validate_line(char *line)
+{
+	// while (*line)
+	// {
+	// 	if (*line != '.' && *line != '#')
+	// 		return (0);
+	// 	line++;
+	// }
+	return (1);
+}
+
+int validate_buf(char *str)
+{
+    printf("%s\n", str);
+    int line_count = 0;
+    int i = 0;
+    char line[4];
+
+    while (*str)
+    {
+        if (i >= 20)
+            return (1);
+        if (str[i] == '\n')
+        {
+            strncmp(line, str, 5);
+            if (validate_line(line) == 1)
+                ft_exit();
+
+            line_count++;
+        }
+        i++;
+    }
+    return (0);
+}
+
+// int parse_tetramino(char *str)
+// {
+//     char *line;
+
+//     *line = (char)malloc(BUF_SIZE + 1);
+//     strncpy(line, str, BUF_SIZE);
+//     line[BUF_SIZE] = '\0';
+
+//     if (check_char())
+
+//     return 1;
+// }
 
 int parse_tetramino_list(const int fd, int **result) {
     int ret = 0;
     char buf[BUF_SIZE];
     int i = 0;
 
-//    result = malloc(1)
-    while ((ret = read(fd, buf, BUF_SIZE)) == BUF_SIZE) {
-        if (parse_tetramino(buf) < 0) {
-            return (-1);
-        }
+    while ((ret = read(fd, buf, 20)) == 20)
+	{
+        if (!validate_buf(buf))
+            ft_exit();
         i++;
     }
-
-    return (i);
+    return i;
 }
 
 void fill_result(int *params, char **result) {
@@ -83,7 +129,8 @@ int main(int argc, char const *argv[]) {
     }
 
     tetramino_count = parse_tetramino_list(fd, &tetramino_result);
-    fill_result(tetramino_count, tetramino_result, &result);
+    // fill_result(tetramino_count, tetramino_result, &result);
     printf("%s\n", result);
+    printf("%d\n", tetramino_count);
     return (0);
 }
