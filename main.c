@@ -100,6 +100,8 @@ int parse_tetramino(char *str)
         min_x = arr_coords[j++];
         if (arr_coords[++j] < min_x)
             min_x = arr_coords[j];
+
+        arr_coords[j] -= min_x;
     }
 
     j = 1;
@@ -108,11 +110,8 @@ int parse_tetramino(char *str)
         min_y = arr_coords[j++];
         if (arr_coords[++j] < min_y)
             min_y = arr_coords[j];
-    }
 
-    while ()
-    {
-
+        arr_coords[j] -= min_y;
     }
 
 
