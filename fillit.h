@@ -5,6 +5,7 @@
 
 #define BUF_SIZE 21
 #define MAX_TETRA_COUNT 26
+#define TETROMINO_TYPE_COUNT 19
 
 /**
              #
@@ -35,8 +36,9 @@
  ##   - 18
 
  */
-int TETROMINOS[19][8] = {
-    1,2,3,4,5,6,7,8,
+int TETROMINOS[TETROMINO_TYPE_COUNT][8] = {
+    1,0,1,0,1,0,1,0,
+    
     1,2,3,4,5,6,7,8,
     1,2,3,4,5,6,7,8,
     1,2,3,4,5,6,7,8,
