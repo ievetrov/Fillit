@@ -1,10 +1,4 @@
-# include "libft/libft.h"
-# include <stdio.h>
-# include <fcntl.h>
-# include <unistd.h>
-
-#define BUF_SIZE 21
-#define MAX_TETRA_COUNT 26
+# include "fillit.h"
 
 /**
              #
@@ -88,7 +82,7 @@ int parse_tetramino(char *str)
     }
 
 
-    // sdvig / Вычисляем минимальное число в массиве
+    // sdvig / Вычисляем минимальное число в массиве, сдвигаем в ноль
 
     int min_x;
     int min_y;
@@ -96,7 +90,7 @@ int parse_tetramino(char *str)
     int k = 0;
 
     min_x = arr_coords[j];
-    while (j <= 6)
+    while (j < 6)
     {
         j += 2;
         if (arr_coords[j] < min_x)
@@ -105,7 +99,7 @@ int parse_tetramino(char *str)
 
     j = 1;
     min_y = arr_coords[j];
-    while (j <= 7)
+    while (j < 7)
     {
         j += 2;
         if (arr_coords[j] < min_y)
@@ -124,8 +118,6 @@ int parse_tetramino(char *str)
         arr_coords[k] -= min_y;
         k += 2;
     }
-
-
 
 
     // int miny = arr_coords[1];
