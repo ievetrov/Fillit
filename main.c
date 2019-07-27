@@ -3,7 +3,8 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-#define BUF_SIZE 20
+#define BUF_SIZE 21
+#define MAX_TETRA_COUNT 26
 
 /**
              #
@@ -33,22 +34,14 @@
  ##
  ##   - 18
 
+1. метод, который считывает тетрамино и присваивает им id в массив
+2. зная id, формируем минимальный квадрат, комбинируем
+
  */
 void	ft_exit(void)
 {
 	printf("error\n");
 	exit(EXIT_FAILURE);
-}
-
-int validate_line(char *line)
-{
-	// while (*line)
-	// {
-	// 	if (*line != '.' && *line != '#')
-	// 		return (0);
-	// 	line++;
-	// }
-	return (1);
 }
 
 int validate_buf(char *str)
@@ -58,46 +51,105 @@ int validate_buf(char *str)
     int i = 0;
     char line[4];
 
-    while (*str)
+    while (i < BUF_SIZE)
     {
-        if (i >= 20)
-            return (1);
-        if (str[i] == '\n')
-        {
-            strncmp(line, str, 5);
-            if (validate_line(line) == 1)
-                ft_exit();
-
-            line_count++;
-        }
+        if (str[i] != '.' && str[i] != '#' && str[i] != '\n')
+            ft_exit();
         i++;
     }
     return (0);
 }
 
-// int parse_tetramino(char *str)
-// {
-//     char *line;
+int parse_tetramino(char *str)
+{
+    int x = 0;
+    int y = 0;
+    int i = 0;
+    int arr_coords[8];
+    int coords_count = 0;
 
-//     *line = (char)malloc(BUF_SIZE + 1);
-//     strncpy(line, str, BUF_SIZE);
-//     line[BUF_SIZE] = '\0';
+// получение координат (сюда должны прийти валидные тетрамино)
+    while (i < BUF_SIZE)
+    {
+        if (str[i] == '\n')
+        {
+            y++;
+            x = 0;
+            i++;
+            continue;
+        }
+        if (str[i] == '#')
+        {
+            arr_coords[coords_count++] = x;
+            arr_coords[coords_count++] = y;
+        }
+        x++;
+        i++;
+    }
 
-//     if (check_char())
 
-//     return 1;
-// }
+    // sdvig / Вычисляем минимальное число в массиве
 
-int parse_tetramino_list(const int fd, int **result) {
+    int min_x;
+    int min_y;
+    int j = 0;
+    int k = 0;
+
+    while (j <= 6)
+    {
+        min_x = arr_coords[j++];
+        if (arr_coords[++j] < min_x)
+            min_x = arr_coords[j];
+    }
+
+    j = 1;
+    while (j <= 7)
+    {
+        min_y = arr_coords[j++];
+        if (arr_coords[++j] < min_y)
+            min_y = arr_coords[j];
+    }
+
+    while ()
+    {
+
+    }
+
+
+
+
+    // int miny = arr_coords[1];
+
+    // minx = min([0][2][4][6])
+    // miny = min([1][3][5][7])
+
+    // poluchit code
+    return arr_coords;
+}
+
+
+// считаем количество тетрамино
+// распознавание и присвоение списка id тетрамино - (&tetramino_result)
+int parse_tetramino_list(const int fd, int **result)
+{
     int ret = 0;
     char buf[BUF_SIZE];
     int i = 0;
 
-    while ((ret = read(fd, buf, 20)) == 20)
+    int arr_coords[8];
+
+    while ((ret = read(fd, buf, BUF_SIZE)) == BUF_SIZE)
 	{
-        if (!validate_buf(buf))
-            ft_exit();
+        validate_buf(buf);
+        // TODO parse_tetramino (отправить buf, вернуть число)
+        // *result[i] = parse_tetramino(buf);
+        // ** адрес на адрес (меняем извне)
+
+        arr_coords[8] = parse_tetramino(buf);
+        // *result[i] = parse_tetramino(buf);
         i++;
+        if (i > MAX_TETRA_COUNT)
+            ft_exit();
     }
     return i;
 }
@@ -114,7 +166,7 @@ void print_usage() {
 int main(int argc, char const *argv[]) {
     int tetramino_count;
     int fd;
-    int *tetramino_result;
+    int tetramino_result[26];
     char *result;
 
     if (argc != 2) {
@@ -128,7 +180,11 @@ int main(int argc, char const *argv[]) {
         return (-1);
     }
 
+    //
     tetramino_count = parse_tetramino_list(fd, &tetramino_result);
+
+    //
+    // tetramino_result - массив id фигур тетрамино
     // fill_result(tetramino_count, tetramino_result, &result);
     printf("%s\n", result);
     printf("%d\n", tetramino_count);
