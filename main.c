@@ -40,7 +40,7 @@ void	ft_exit(void)
 
 int validate_buf(char *str)
 {
-    printf("%s\n", str);
+    // printf("%s\n", str);
     int line_count = 0;
     int i = 0;
     char line[4];
@@ -154,13 +154,11 @@ int parse_tetramino(char *str)
 
 // считаем количество тетрамино
 // распознавание и присвоение списка id тетрамино - (&tetramino_result)
-int parse_tetramino_list(const int fd, int **result)
+int parse_tetramino_list(const int fd, int *result)
 {
     int ret = 0;
     char buf[BUF_SIZE];
     int i = 0;
-
-    int arr_coords[8];
 
     while ((ret = read(fd, buf, BUF_SIZE)) == BUF_SIZE)
 	{
@@ -168,9 +166,7 @@ int parse_tetramino_list(const int fd, int **result)
         // TODO parse_tetramino (отправить buf, вернуть число)
         // *result[i] = parse_tetramino(buf);
         // ** адрес на адрес (меняем извне)
-
-        arr_coords[8] = parse_tetramino(buf);
-        // *result[i] = parse_tetramino(buf);
+        result[i] = parse_tetramino(buf);
         i++;
         if (i > MAX_TETRA_COUNT)
             ft_exit();
@@ -190,8 +186,9 @@ void print_usage() {
 int main(int argc, char const *argv[]) {
     int tetramino_count;
     int fd;
-    int tetramino_result[26];
+    int *tetramino_result;
     char *result;
+    int i;
 
     if (argc != 2) {
         print_usage();
@@ -203,14 +200,18 @@ int main(int argc, char const *argv[]) {
         printf("%s\n", "file does not exist");
         return (-1);
     }
+    
+    tetramino_result = malloc(sizeof(int) * MAX_TETRA_COUNT);
+    tetramino_count = parse_tetramino_list(fd, tetramino_result);
 
-    //
-    tetramino_count = parse_tetramino_list(fd, &tetramino_result);
-
-    //
     // tetramino_result - массив id фигур тетрамино
     // fill_result(tetramino_count, tetramino_result, &result);
-    printf("%s\n", result);
-    printf("%d\n", tetramino_count);
+    // printf("%s\n", result);
+    
+    printf("COUNT = %d\n", tetramino_count);
+    i = 0;
+    while(tetramino_count > i)
+        printf("%d, ", tetramino_result[i++]);
+
     return (0);
 }
