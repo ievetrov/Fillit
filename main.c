@@ -127,9 +127,9 @@ int parse_tetramino(char *str)
     i = 0;
     j = 0;
     int result = -1;
-    while (i<TETROMINO_TYPE_COUNT)
+    while (i < TETROMINO_TYPE_COUNT)
     {
-        while(j<8)
+        while(j < 8)
         {
             if(TETROMINOS[i][j] != arr_coords[j])
                 break;
@@ -145,9 +145,9 @@ int parse_tetramino(char *str)
         }
         i++;
     }
-    
 
     // poluchit code
+    printf("%d\n", result);
     return result;
 }
 
