@@ -126,22 +126,29 @@ int parse_tetramino(char *str)
     // miny = min([1][3][5][7])
     i = 0;
     j = 0;
+    int result = -1;
     while (i<TETROMINO_TYPE_COUNT)
     {
         while(j<8)
         {
-            if(TETROMINOS[i][j] == arr_coords[j])
-            {
-                
-            }
+            if(TETROMINOS[i][j] != arr_coords[j])
+                break;
             j++;
+            if(j == 7)
+            {
+                result = i;
+            }
+        }
+        if(result != -1)
+        {
+            break;
         }
         i++;
     }
     
 
     // poluchit code
-    return arr_coords;
+    return result;
 }
 
 
