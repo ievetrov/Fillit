@@ -1,32 +1,6 @@
 # include "fillit.h"
 
-/**
-             #
-             #
-             #
- #### - 0    #    - 1
-
-
- ##          ##         #            #
- #            #         #            #
- #    - 2     #   - 3   ##   - 4    ##   - 5
-
- #             #        ###         ###
- ###  - 6    ###  - 7   #     - 8     #  - 9
-
-
-                        #            #
- ##           ##        ##          ##
-  ##  - 10   ##   - 11   #   - 12   #    - 13
-
-
-                        #             #
-  #          ###        ##           ##
- ###  - 14    #   - 15  #    - 16     #   - 17
-
-
- ##
- ##   - 18
+/*
 
 1. метод, который считывает тетрамино и присваивает им id в массив
 2. зная id, формируем минимальный квадрат, комбинируем
@@ -159,6 +133,7 @@ int parse_tetramino_list(const int fd, int *result)
     int ret = 0;
     char buf[BUF_SIZE];
     int i = 0;
+    int z = 0;
 
     while ((ret = read(fd, buf, BUF_SIZE)) == BUF_SIZE)
 	{
@@ -170,6 +145,8 @@ int parse_tetramino_list(const int fd, int *result)
         i++;
         if (i > MAX_TETRA_COUNT)
             ft_exit();
+        z++;
+        printf("z = %d\n", z);
     }
     return i;
 }
@@ -211,6 +188,6 @@ int main(int argc, char const *argv[]) {
     printf("Количество фигур (tetramino_count) = %d\n", tetramino_count);
     i = 0;
     while(tetramino_count > i)
-        printf("Фигура %d: id %d\n", i, tetramino_result[i++]);
+        printf("Фигура %d: id %d\n", i + 1, tetramino_result[i++]);
     return (0);
 }
