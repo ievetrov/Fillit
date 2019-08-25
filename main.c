@@ -200,18 +200,17 @@ int main(int argc, char const *argv[]) {
         printf("%s\n", "file does not exist");
         return (-1);
     }
-    
+
     tetramino_result = malloc(sizeof(int) * MAX_TETRA_COUNT);
     tetramino_count = parse_tetramino_list(fd, tetramino_result);
 
     // tetramino_result - массив id фигур тетрамино
     // fill_result(tetramino_count, tetramino_result, &result);
     // printf("%s\n", result);
-    
-    printf("COUNT = %d\n", tetramino_count);
+
+    printf("Количество фигур (tetramino_count) = %d\n", tetramino_count);
     i = 0;
     while(tetramino_count > i)
-        printf("%d, ", tetramino_result[i++]);
-
+        printf("Фигура %d: id %d\n", i, tetramino_result[i++]);
     return (0);
 }
