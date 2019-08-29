@@ -118,6 +118,7 @@ int parse_tetramino(char *str)
             break;
         }
         i++;
+        j = 0;
     }
 
     // poluchit code
@@ -148,6 +149,8 @@ int parse_tetramino_list(const int fd, int *result)
         z++;
         printf("z = %d\n", z);
     }
+    result[i] = parse_tetramino(buf);
+    i++;
     return i;
 }
 
